@@ -5,6 +5,7 @@ import 'package:weather_app/api/weather%20api.dart';
 import 'package:weather_app/components/Today_weather.dart';
 import 'package:weather_app/components/fortnight_list.dart';
 import 'package:weather_app/components/hourly_list.dart';
+import 'package:weather_app/pages/fortnight_forecast.dart';
 
 class WeatherPage extends StatefulWidget {
   const WeatherPage({super.key});
@@ -33,8 +34,36 @@ class _WeatherPageState extends State<WeatherPage> {
     });
   }
 
+  void _selectMenuOption(String option) {
+    print('Selected Option: $option');
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        actions: [
+          PopupMenuTheme(
+            data: PopupMenuThemeData(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15),
+              ),
+            ),
+            child: PopupMenuButton<String>(
+              color: Colors.white,
+              onSelected: _selectMenuOption,
+              itemBuilder: (BuildContext context) {
+                return {'Change Location', 'Sign Out'}.map((String choice) {
+                  return PopupMenuItem<String>(
+                    value: choice,
+                    child: Text(choice),
+                  );
+                }).toList();
+              },
+            ),
+          ),
+        ],
+      ),
       backgroundColor: Colors.white,
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -53,72 +82,78 @@ class _WeatherPageState extends State<WeatherPage> {
                     padding: EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.blue.withOpacity(0.1),
+                      // color: Colors.grey[100],
                     ),
-                    child: Text(
-                      "Next 15 Days",
-                      style: GoogleFonts.montserrat(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF3f6096),
-                      ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          " 24hrs",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black54,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: (){
+                            Navigator.pushNamed(context, '/15days',arguments:data);
+                          },
+                          child: Text(
+                            "Next 15 Days",
+                            style: GoogleFonts.montserrat(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF3f6096),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 30,
                   ),
-                  Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: data.fortNight!['data'].length,
-                      itemBuilder: (context, index) {
-                        final dayWeather = data.fortNight!['data'][index];
+                  SingleChildScrollView(
+                    child: Expanded(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                            children:
+                                List.generate(data.hourly.length, (index) {
+                          final hourlyWeather = data.hourly[index];
+                          final DateTime datetime =
+                              DateTime.parse(hourlyWeather['timestamp_local']);
+                          final String date = DateFormat('dd MMM')
+                              .format(datetime); // Use 'dd/MM'
+                          final String time =
+                              DateFormat('H:mm a').format(datetime);
+                          final double temp = (hourlyWeather['temp'] is int)
+                              ? (hourlyWeather['temp'] as int).toDouble()
+                              : hourlyWeather['temp'] ?? 0.0;
+                          final String iconCode =
+                              hourlyWeather['weather']['icon'] ?? 'default';
+                          final String iconUrl =
+                              'https://www.weatherbit.io/static/img/icons/$iconCode.png';
 
-                        final String date =
-                            dayWeather['datetime'] ?? 'Unknown date';
-
-                        final double temp = (dayWeather['temp'] is int)
-                            ? (dayWeather['temp'] as int).toDouble()
-                            : dayWeather['temp'] ?? 0.0;
-
-                        final String iconCode =
-                            dayWeather['weather']['icon'] ?? 'default';
-                        final String iconUrl =
-                            'https://www.weatherbit.io/static/img/icons/$iconCode.png';
-
-                        return FortnightList(
-                          date: date,
-                          iconUrl: iconUrl,
-                          temp: temp,
-                        );
-                      },
-                    ),
-                  ),
-                  Expanded(
-                      child: ListView.builder(
-                          itemCount: data.hourly.length,
-                          itemBuilder: (context, index) {
-                            final hourlyWeather = data.hourly[index];
-                            final DateTime datetime = DateTime.parse(hourlyWeather['timestamp_local']);
-                            final String date = DateFormat('dd/mm').format(datetime);
-                            final String time = DateFormat('H:mm').format(datetime);
-                            final double temp = (hourlyWeather['temp'] is int)
-                                ? (hourlyWeather['temp'] as int).toDouble()
-                                : hourlyWeather['temp'] ?? 0.0;
-                            final String iconCode =
-                                hourlyWeather['weather']['icon'] ?? 'default';
-                            final String iconUrl =
-                                'https://www.weatherbit.io/static/img/icons/$iconCode.png';
-                            return HourlyList(
-                              date:date,
+                          return Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                            child: HourlyList(
+                              date: date,
                               time: time,
                               iconUrl: iconUrl,
-                              temp:temp,
-                            );
-                          }))
+                              temp: temp,
+                            ),
+                          );
+                        })),
+                      ),
+                    ),
+                  ),
+                  // FortnightForecast(data: data),
                 ],
               ),
             ),
     );
   }
 }
+

@@ -11,31 +11,52 @@ class HourlyList extends StatelessWidget {
       {super.key,
       required this.date,
       required this.temp,
-      required this.iconUrl, required this.time});
+      required this.iconUrl,
+      required this.time});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.black45,
-      ),
       child: Column(
         children: [
+          Text(
+            time,
+            style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 10,
+          ),
           Container(
-            
-          ),
-          Image.network(iconUrl,height: 80,),
-          Text(
-            'Date: ${date}',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-          ),
-          Text(time),
-          Text(
-            'Temperature: ${temp.toString()}°C',
-            style: TextStyle(
-              fontSize: 15,
+
+            width: MediaQuery.of(context).size.width * 0.3,
+            padding: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(
+              children: [
+                Image.network(
+                  iconUrl,
+                  height: 80,
+                ),
+                Text(
+                  temp.toString() + "°C",
+                  style: TextStyle(
+                    fontSize: 15,
+                  ),
+                ),
+              ],
             ),
           ),
+          SizedBox(height: 10,),
+          Text(
+            date,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 40,
+          )
         ],
       ),
     );

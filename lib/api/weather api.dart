@@ -77,7 +77,7 @@ class WeatherData {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       fortNight = data;
-      print(fortNight);
+      // print(fortNight);
     } else {
       print(
           'Failed to load data: ${response.body}');
@@ -92,7 +92,7 @@ class WeatherData {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];
       hourly = data;
-      print(hourly);
+      // print(hourly);
     } else {
       print(
           'Failed to load data: ${response.body}');
