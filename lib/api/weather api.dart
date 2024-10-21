@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart';
 import 'package:weather/weather.dart';
+
 class WeatherData {
   late final String city;
   late String description;
@@ -14,8 +15,9 @@ class WeatherData {
   late double latitude;
   late String icon;
   late dynamic fortNight;
-  WeatherData(this.city);
+  late dynamic hourly;
 
+  WeatherData(this.city);
 
   Future<bool> getCurrWeather() async {
     Response response = await get(Uri.parse(
@@ -66,18 +68,34 @@ class WeatherData {
   }
 
   Future<void> getFiveDayForecast() async {
-    var url = "https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=d5b43d318855402190b443044a6db4ee";
+    var url =
+        "https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=d5b43d318855402190b443044a6db4ee";
     var response = await get(Uri.parse(url));
 
-    print('Response status: ${response.statusCode}');
+    // print('Response status: ${response.statusCode}');
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       fortNight = data;
       print(fortNight);
     } else {
-      print('Failed to load data: ${response.body}');  // Debugging: Print the error message
+      print(
+          'Failed to load data: ${response.body}');
     }
   }
 
+  Future<void> hourlyData() async {
+    var url =
+        "https://api.weatherbit.io/v2.0/forecast/hourly?lat=${latitude}&lon=${longitude}&key=d5b43d318855402190b443044a6db4ee&hours=24";
+    var response = await get(Uri.parse(url));
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['data'];
+      hourly = data;
+      print(hourly);
+    } else {
+      print(
+          'Failed to load data: ${response.body}');
+    }
+  }
 }

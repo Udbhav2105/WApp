@@ -20,7 +20,7 @@ class _SearchLocState extends State<SearchLoc> {
       WeatherData weatherData = WeatherData(loc.text);
       bool locationFound = await weatherData.getLonLat();
       await weatherData.getFiveDayForecast();
-
+      await weatherData.hourlyData();
       if (locationFound) {
         setState(() {
           cities.add(weatherData);
