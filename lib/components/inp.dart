@@ -27,12 +27,12 @@ class _InputBoxState extends State<InputBox> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
-                  color: Colors.blueAccent,
+                  color: Color(0xFFcde1fc),
                   width: 2.0,
                 ),
               ),
               labelText: widget.inputText,
-              labelStyle: const TextStyle(color: Colors.blueGrey),
+              labelStyle: const TextStyle(color:  Color(0xFF3f6096)),
             ),
           ),
         )

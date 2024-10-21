@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 class LocationList extends StatelessWidget {
   final String location;
-
-  const LocationList({super.key, required this.location});
+  final VoidCallback? onRemove;
+  const LocationList({super.key, required this.location, this.onRemove});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.2),
+        color: Color(0xFFcde1fc).withOpacity(0.6),
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey),
+        border: Border.all(color: Colors.blue),
       ),
       padding: const EdgeInsets.all(16.0),
       child: Row(
@@ -22,12 +22,15 @@ class LocationList extends StatelessWidget {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: Colors.black87,
+              color: Color(0xFF3f6096),
             ),
           ),
-          const Icon(
-            Icons.location_city,
-            color: Colors.blueGrey,
+          IconButton(
+            icon: const Icon(
+              Icons.close,
+              color: Color(0xFF3f6096),
+            ),
+            onPressed: onRemove,
           ),
         ],
       ),

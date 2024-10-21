@@ -32,16 +32,24 @@ class _SearchLocState extends State<SearchLoc> {
     }
   }
 
+  void removeCity(int index) {
+    // print("Removing: ${cities[index]}");
+    setState(() {
+      cities.removeAt(index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    double size = MediaQuery.of(context).size.width * 0.95;
+    double size = MediaQuery.of(context).size.width * 0.9;
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               InputBox(inputText: "Location", controller: loc),
               SizedBox(
@@ -49,15 +57,22 @@ class _SearchLocState extends State<SearchLoc> {
                 child: ElevatedButton(
                   onPressed: addCity,
                   style: ElevatedButton.styleFrom(
+                    backgroundColor: Color(0xFFcde1fc),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  child: const Text('Add'),
+                  child: const Text(
+                    'Add',
+                    style: TextStyle(
+                      color: Color(0xFF3f6096),
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
-
               Expanded(
                 child: ListView.builder(
                   itemCount: cities.length,
@@ -65,14 +80,16 @@ class _SearchLocState extends State<SearchLoc> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: GestureDetector(
-                        onTap: ()  {
-                          // await cities[index].getCurrWeather();
-                          // print('Fetching weather for ${cities[index].humidity}');
-                          Navigator.pushReplacementNamed(context, '/weatherPage',arguments: cities[index]);
+                        onTap: () {
+                          Navigator.pushReplacementNamed(
+                              context, '/weatherPage',
+                              arguments: cities[index]);
                         },
                         child: LocationList(
-                            location: cities[index].city[0].toUpperCase() +
-                                cities[index].city.substring(1).toLowerCase()),
+                          location: cities[index].city[0].toUpperCase() +
+                              cities[index].city.substring(1).toLowerCase(),
+                          onRemove: () => removeCity(index),
+                        ),
                       ),
                     );
                   },
