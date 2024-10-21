@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_animation/weather_animation.dart';
-import 'package:weather_app/api/weather%20api.dart';
+import 'package:weather_app/services/weather%20api.dart';
 import 'package:weather_app/components/inp.dart';
 import 'package:weather_app/components/list_of_locs.dart';
 
@@ -33,10 +33,23 @@ class _SearchLocState extends State<SearchLoc> {
   }
 
   void removeCity(int index) {
-    // print("Removing: ${cities[index]}");
     setState(() {
       cities.removeAt(index);
     });
+  }
+
+  Future<void> navigateToWeatherPage(int index) async {
+    final result = await Navigator.pushNamed(
+      context,
+      '/weatherPage',
+      arguments: cities[index],
+    );
+
+    if (result != null && result is List<WeatherData>) {
+      setState(() {
+        cities = result;
+      });
+    }
   }
 
   @override
@@ -80,11 +93,7 @@ class _SearchLocState extends State<SearchLoc> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: GestureDetector(
-                        onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, '/weatherPage',
-                              arguments: cities[index]);
-                        },
+                        onTap: () => navigateToWeatherPage(index),
                         child: LocationList(
                           location: cities[index].city[0].toUpperCase() +
                               cities[index].city.substring(1).toLowerCase(),
