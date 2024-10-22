@@ -16,7 +16,7 @@ class WeatherPage extends StatefulWidget {
 class _WeatherPageState extends State<WeatherPage> {
   late WeatherData weatherData;
   final AuthServices _auth = AuthServices();
-  late Map<String,dynamic> data;
+  late Map<String, dynamic> data;
   bool isLoading = true;
 
   void setupWeatherPage() async {
@@ -25,10 +25,14 @@ class _WeatherPageState extends State<WeatherPage> {
     print(data['location']);
     print(data['coordinates']);
     weatherData = WeatherData(data['location']);
-    await weatherData.getCurrWeather(data['coordinates']['lat'],data['coordinates']['lon']);
-    await weatherData.getFiveDayForecast(data['coordinates']['lat'],data['coordinates']['lon']);
-    await weatherData.hourlyData(data['coordinates']['lat'],data['coordinates']['lon']);
+    await weatherData.getCurrWeather(
+        data['coordinates']['lat'], data['coordinates']['lon']);
+    await weatherData.getFiveDayForecast(
+        data['coordinates']['lat'], data['coordinates']['lon']);
+    await weatherData.hourlyData(
+        data['coordinates']['lat'], data['coordinates']['lon']);
     print('is laoding is going to be false');
+    print(weatherData.fortNight);
     setState(() {
       isLoading = false;
     });
@@ -74,75 +78,85 @@ class _WeatherPageState extends State<WeatherPage> {
       backgroundColor: Colors.white,
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Padding(
-        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
-        child: Column(
-          children: [
-            SafeArea(child: TodayWeather(data: weatherData)),
-            const SizedBox(height: 10),
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          : SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+              child: Column(
                 children: [
-                  Text(
-                    " 24hrs",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.black54,
+                  SafeArea(child: TodayWeather(data: weatherData)),
+                  const SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          " 24hrs",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.black54,
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(context, '/15days',
+                                arguments: weatherData);
+                          },
+                          child: Text(
+                            "Next 15 Days",
+                            style: GoogleFonts.montserrat(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: Color(0xFF3f6096),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, '/15days', arguments: data);
-                    },
-                    child: Text(
-                      "Next 15 Days",
-                      style: GoogleFonts.montserrat(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF3f6096),
-                      ),
+                  SizedBox(height: 30),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children:
+                          List.generate(weatherData.hourly.length, (index) {
+                        final hourlyWeather = weatherData.hourly[index];
+                        final DateTime datetime =
+                            DateTime.parse(hourlyWeather['timestamp_local']);
+                        final String date =
+                            DateFormat('dd MMM').format(datetime);
+                        final String time =
+                            DateFormat('H:mm a').format(datetime);
+                        final double temp = (hourlyWeather['temp'] is int)
+                            ? (hourlyWeather['temp'] as int).toDouble()
+                            : hourlyWeather['temp'] ?? 0.0;
+                        final String iconCode =
+                            hourlyWeather['weather']['icon'] ?? 'default';
+                        final String iconUrl =
+                            'https://www.weatherbit.io/static/img/icons/$iconCode.png';
+            
+                        return Padding(
+                          padding:
+                              const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: HourlyList(
+                            date: date,
+                            time: time,
+                            iconUrl: iconUrl,
+                            temp: temp,
+                          ),
+                        );
+                      }),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(height: 30),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: List.generate(weatherData.hourly.length, (index) {
-                  final hourlyWeather = weatherData.hourly[index];
-                  final DateTime datetime = DateTime.parse(hourlyWeather['timestamp_local']);
-                  final String date = DateFormat('dd MMM').format(datetime);
-                  final String time = DateFormat('H:mm a').format(datetime);
-                  final double temp = (hourlyWeather['temp'] is int)
-                      ? (hourlyWeather['temp'] as int).toDouble()
-                      : hourlyWeather['temp'] ?? 0.0;
-                  final String iconCode = hourlyWeather['weather']['icon'] ?? 'default';
-                  final String iconUrl = 'https://www.weatherbit.io/static/img/icons/$iconCode.png';
-
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 8.0),
-                    child: HourlyList(
-                      date: date,
-                      time: time,
-                      iconUrl: iconUrl,
-                      temp: temp,
-                    ),
-                  );
-                }),
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 }

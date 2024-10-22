@@ -79,7 +79,7 @@ class WeatherData {
     // print('Response status: ${response.statusCode}');
 
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body);
+      var data = jsonDecode(response.body) as Map<String,dynamic>;
       fortNight = data;
       // print(fortNight);
     } else {
