@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:weather_app/pages/firebase_login.dart';
 import 'package:weather_app/pages/search_page.dart';
 import 'package:weather_app/pages/weather_page.dart';
@@ -14,6 +15,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+   try {
+    await dotenv.load();  // Ensure the dotenv is loaded
+  } catch (e) {
+    print("Error loading .env file: $e");  // Catch and print error if dotenv fails
+  }
   runApp(const MyApp());
 }
 

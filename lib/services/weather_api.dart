@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:ffi';
-import 'package:intl/intl.dart';
 import 'package:http/http.dart';
-import 'package:weather/weather.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class WeatherData {
   late final String city;
@@ -19,14 +17,17 @@ class WeatherData {
 
   WeatherData(this.city);
 
- // THIS FUNCTION FETCHES WEATHER DATA FROM THE INPUT LATITUDE AND LONGITUDE
-  Future<bool> getCurrWeather(double latitude,double longitude) async {
-    // print('getCurrWeather being called');
-    // print("input values of this func is are ${latitude}, ${longitude}");
-    Response response = await get(Uri.parse(
-        "https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=2b659a6b68178648847b3ab6d4992818&units=metric"));
-
+  // THIS FUNCTION FETCHES WEATHER DATA FROM THE INPUT LATITUDE AND LONGITUDE
+  Future<bool> getCurrWeather(double latitude, double longitude) async {
     try {
+      final apiKey = dotenv.env['OPENWEATHER'];
+      if (apiKey == null) {
+        print("API Key not found");
+        return false;
+      }
+      Response response = await get(Uri.parse(
+          "https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=metric"));
+
       if (response.statusCode == 200) {
         final b = jsonDecode(response.body);
 
@@ -48,10 +49,16 @@ class WeatherData {
     }
   }
 
-// THIS FUNCTION FETCHES LONGITUDE AND LATITUDE OF THE LOCATION
+  // THIS FUNCTION FETCHES LONGITUDE AND LATITUDE OF THE LOCATION
   Future<bool> getLonLat() async {
+    final apiKey = dotenv.env['OPENWEATHER'];
+    if (apiKey == null) {
+      print("API Key not found");
+      return false;
+    }
+
     Response response = await get(Uri.parse(
-        "http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=2b659a6b68178648847b3ab6d4992818"));
+        "http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}"));
 
     if (response.statusCode == 200) {
       final b = jsonDecode(response.body);
@@ -72,39 +79,42 @@ class WeatherData {
   }
 
   // THIS FUNCTION FETCHES DATA OF 15 DAYS
-  Future<void> get15DayForecast(double latitude,double longitude) async {
-    // print('getFiveDayForecast being called');
-    // print("input values of this func is are ${latitude}, ${longitude}");
+  Future<void> get15DayForecast(double latitude, double longitude) async {
+    final weatherbitKey = dotenv.env['WEATHERBIT'];
+    if (weatherbitKey == null) {
+      print("Weatherbit API Key not found");
+      return;
+    }
+
     var url =
-        "https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=d5b43d318855402190b443044a6db4ee";
+        "https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=${weatherbitKey}";
     var response = await get(Uri.parse(url));
 
-    // print('Response status: ${response.statusCode}');
-
     if (response.statusCode == 200) {
-      var data = jsonDecode(response.body) as Map<String,dynamic>;
+      var data = jsonDecode(response.body) as Map<String, dynamic>;
       fortNight = data;
-      // print(fortNight);
     } else {
-      print(
-          'Failed to load data: ${response.body}');
+      print('Failed to load data: ${response.body}');
     }
   }
+
   // THIS FUNCTION FETCHES HOURLY DATA
-  Future<void> hourlyData(double latitude,double longitude) async {
-    // print('hourly data being called');
-    // print("input values of this func is are ${latitude}, ${longitude}");
+  Future<void> hourlyData(double latitude, double longitude) async {
+    final weatherbitKey = dotenv.env['WEATHERBIT'];
+    if (weatherbitKey == null) {
+      print("Weatherbit API Key not found");
+      return;
+    }
+
     var url =
-        "https://api.weatherbit.io/v2.0/forecast/hourly?lat=${latitude}&lon=${longitude}&key=d5b43d318855402190b443044a6db4ee&hours=24";
+        "https://api.weatherbit.io/v2.0/forecast/hourly?lat=${latitude}&lon=${longitude}&key=${weatherbitKey}&hours=24";
     var response = await get(Uri.parse(url));
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['data'];
       hourly = data;
-      // print(hourly);
     } else {
-      print(
-          'Failed to load data: ${response.body}');
+      print('Failed to load data: ${response.body}');
     }
   }
 }

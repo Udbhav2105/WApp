@@ -14,18 +14,25 @@ class FirebaseLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:AppColor.secondaryColor,
-      body: SafeArea(
+      backgroundColor: AppColor.secondaryColor,
+      body: SingleChildScrollView(
         child: Column(
           children: [
             const AppTitle(),
-            Expanded(
-              child: SignInCard(auth: _auth),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 0.7,
+                ),
+                child: SignInCard(auth: _auth),
+              ),
             ),
           ],
         ),
       ),
     );
+
   }
 }
 
