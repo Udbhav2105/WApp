@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/api/weather api.dart';
+import 'package:weather_app/services/weather api.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TodayWeather extends StatelessWidget {
@@ -31,7 +31,7 @@ class TodayWeather extends StatelessWidget {
                         color: const Color(0xFF3f6096),
                         fontSize: 40,
                         fontWeight: FontWeight.w400)),
-                const Text("Today 00 : 32",
+                const Text("Today",
                     style: TextStyle(
                       color: Color(0xFF3f6096),
                       fontSize: 17,

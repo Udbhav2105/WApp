@@ -21,7 +21,7 @@ class HourlyList extends StatelessWidget {
         children: [
           Text(
             time,
-            style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold,color: Colors.black54),
           ),
           SizedBox(
             height: 10,
@@ -52,7 +52,7 @@ class HourlyList extends StatelessWidget {
           SizedBox(height: 10,),
           Text(
             date,
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: Colors.black54),
           ),
           SizedBox(
             height: 40,
