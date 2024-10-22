@@ -52,6 +52,7 @@ class _SearchLocState extends State<SearchLoc> {
   }
 
   void addCity() async {
+    print('trying to add');
     if (loc.text.isNotEmpty) {
       WeatherData weatherData = WeatherData(loc.text);
       bool locationFound = await weatherData.getLonLat();
