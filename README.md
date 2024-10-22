@@ -1,4 +1,3 @@
-
 # 🌤️ Weather App
 
 Welcome to the **Weather App**! This Flutter application empowers users to input their desired location and fetch real-time weather information effortlessly. Whether you want to check today’s forecast or plan for the next two weeks, this app has you covered!
@@ -46,9 +45,8 @@ flutter run
 ## 📖 Usage
 
 1. **User Authentication**: Choose to sign in with your Google account or continue as a guest.
-2. ***Input Location**: Enter your desired location in the search bar.
-3. *Fetch Weather**: After entering the location, view the current weather data, a 24-hour forecast, and a 15-day forecast.
-
+2. **Input Location**: Enter your desired location in the search bar.
+3. **Fetch Weather**: After entering the location, view the current weather data, a 24-hour forecast, and a 15-day forecast.
 
 ![UI](lib/images/weatherApp.png)
 
@@ -58,6 +56,12 @@ flutter run
 - **Firebase**: Utilize Firestore for efficient data storage.
 - **OpenWeather API**: Access reliable weather data.
 - **Weatherbit API**: Get detailed extended forecasts.
+
+## 📱 Download APK
+
+You can download the latest APK release from the following link:
+
+[WeatherApp APK](https://github.com/Udbhav2105/weather_app/releases/tag/WeatherApp_APk)
 
 ## 🤝 Contributing
 
