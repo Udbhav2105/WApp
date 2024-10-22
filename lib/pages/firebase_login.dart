@@ -59,6 +59,7 @@ class FirebaseLogin extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () async {
                             await _auth.signInAnonymously();
+                            print('here');
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:  Color(0xFFcde1fc),
@@ -89,7 +90,7 @@ class FirebaseLogin extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.78,
                         child: ElevatedButton(
                           onPressed: () async {
-                            // await _auth.signInWithGoogle();
+                            await _auth.signInWithGoogle();
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor:Color(0xFFcde1fc),

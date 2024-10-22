@@ -19,7 +19,9 @@ class WeatherData {
 
   WeatherData(this.city);
 
-  Future<bool> getCurrWeather() async {
+  Future<bool> getCurrWeather(double latitude,double longitude) async {
+    print('getCurrWeather being called');
+    print("input values of this func is are ${latitude}, ${longitude}");
     Response response = await get(Uri.parse(
         "https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=2b659a6b68178648847b3ab6d4992818&units=metric"));
 
@@ -67,7 +69,9 @@ class WeatherData {
     }
   }
 
-  Future<void> getFiveDayForecast() async {
+  Future<void> getFiveDayForecast(double latitude,double longitude) async {
+    print('getFiveDayForecast being called');
+    print("input values of this func is are ${latitude}, ${longitude}");
     var url =
         "https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=d5b43d318855402190b443044a6db4ee";
     var response = await get(Uri.parse(url));
@@ -84,7 +88,9 @@ class WeatherData {
     }
   }
 
-  Future<void> hourlyData() async {
+  Future<void> hourlyData(double latitude,double longitude) async {
+    print('hourly data being called');
+    print("input values of this func is are ${latitude}, ${longitude}");
     var url =
         "https://api.weatherbit.io/v2.0/forecast/hourly?lat=${latitude}&lon=${longitude}&key=d5b43d318855402190b443044a6db4ee&hours=24";
     var response = await get(Uri.parse(url));
