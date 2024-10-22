@@ -18,7 +18,7 @@ class FirebaseLogin extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const AppTitle(),
+            const SafeArea(child: AppTitle()),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: ConstrainedBox(
