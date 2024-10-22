@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/firebase_login.dart';
-import 'package:weather_app/pages/search%20page.dart';
+import 'package:weather_app/pages/search_page.dart';
 import 'package:weather_app/pages/weather_page.dart';
 import 'package:weather_app/pages/fortnight_forecast.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,12 +38,12 @@ class _MyAppState extends State<MyApp> {
 
             if (user != null) {
               // User signed in
-              print('sending to serachLoc');
+              print('sending to searchLoc');
               return const SearchLoc();
             } else {
               // User not signed in
               print(user);
-              print("here");
+              // print("here");
               return  FirebaseLogin();
             }
           } else {

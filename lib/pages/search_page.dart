@@ -87,7 +87,7 @@ class _SearchLocState extends State<SearchLoc> {
     }
   }
 
-// THIS REMMOVES LOCATION FROM FIREBASE
+// THIS REMOVES LOCATION FROM FIREBASE
   void removeCity(int index) async {
     String? userId = _auth.currentUser?.uid;
     if (userId != null) {
@@ -109,19 +109,19 @@ class _SearchLocState extends State<SearchLoc> {
   }
 
 
-//   Future<void> navigateToWeatherPage(int index) async {
-//     final result = await Navigator.pushNamed(
-//       context,
-//       '/weatherPage',
-//       arguments: cities[index],
-//     );
-//
-//     if (result != null && result is List<WeatherData>) {
-//       setState(() {
-//         cities = result.cast<Map<String, dynamic>>();
-//       });
-//     }
-//   }
+  // Future<void> navigateToWeatherPage(int index) async {
+  //   final result = await Navigator.pushNamed(
+  //     context,
+  //     '/weatherPage',
+  //     arguments: cities[index],
+  //   );
+  //
+  //   if (result != null && result is List<WeatherData>) {
+  //     setState(() {
+  //       cities = result.cast<Map<String, dynamic>>();
+  //     });
+  //   }
+  // }
 
   void signOut() async {
     await _auth.signOut();
