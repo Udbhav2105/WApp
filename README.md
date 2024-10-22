@@ -53,7 +53,7 @@ flutter run
 3. *Fetch Weather**: After entering the location, view the current weather data, a 24-hour forecast, and a 15-day forecast.
 
 
-![UI](./lib/images/weatherApp.png)
+![UI](lib/images/weatherApp.png)
 
 ## 💻 Technologies Used
 
