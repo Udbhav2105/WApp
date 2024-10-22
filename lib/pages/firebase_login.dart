@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/components/app_title.dart';
 import 'package:weather_app/components/signin_card.dart';
+import 'package:weather_app/services/app_color.dart';
 import 'package:weather_app/services/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -12,7 +13,7 @@ class FirebaseLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFcde1fc),
+      backgroundColor:AppColor.secondaryColor,
       body: SafeArea(
         child: Column(
           children: [

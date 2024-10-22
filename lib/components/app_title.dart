@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/services/app_color.dart';
 
 class AppTitle extends StatelessWidget {
   const AppTitle({super.key});
@@ -14,7 +15,7 @@ class AppTitle extends StatelessWidget {
           style: TextStyle(
             fontSize: 60,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF3f6096),
+            color:AppColor.primaryColor,
           ),
         ),
       ),

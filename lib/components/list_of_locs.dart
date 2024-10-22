@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/services/app_color.dart';
 
 class LocationList extends StatelessWidget {
   final String location;
@@ -9,7 +10,7 @@ class LocationList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFcde1fc).withOpacity(0.6),
+        color:AppColor.secondaryColor.withOpacity(0.6),
         borderRadius: BorderRadius.circular(10),
         border: Border.all(color: Colors.blue),
       ),
@@ -22,13 +23,13 @@ class LocationList extends StatelessWidget {
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
-              color: Color(0xFF3f6096),
+              color:AppColor.primaryColor,
             ),
           ),
           IconButton(
             icon: const Icon(
               Icons.close,
-              color: Color(0xFF3f6096),
+              color:AppColor.primaryColor,
             ),
             onPressed: onRemove,
           ),

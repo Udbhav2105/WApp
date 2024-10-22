@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/services/app_color.dart';
 
 class SignInButton extends StatelessWidget {
   final String text;
@@ -19,7 +20,7 @@ class SignInButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFFcde1fc),
+          backgroundColor: AppColor.secondaryColor,
           minimumSize: const Size(200, 60),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
@@ -31,12 +32,12 @@ class SignInButton extends StatelessWidget {
             Text(
               text,
               style: const TextStyle(
-                color: Color(0xFF3f6096),
+                color:AppColor.primaryColor,
                 letterSpacing: 0.7,
                 fontSize: 17,
               ),
             ),
-            Icon(icon, color: const Color(0xFF3f6096)),
+            Icon(icon, color: AppColor.primaryColor),
           ],
         ),
       ),

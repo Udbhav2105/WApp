@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/services/app_color.dart';
 import 'package:weather_app/services/weather api.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -15,32 +16,32 @@ class TodayWeather extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height * 0.5,
       decoration: BoxDecoration(
-          color: Color(0xFFcde1fc).withOpacity(0.5),
+          color:AppColor.secondaryColor.withOpacity(0.5),
           borderRadius: BorderRadius.all(
             Radius.circular(15),
           )),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+            padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(data.city,
+                Text(data.city.toUpperCase(),
                     style: GoogleFonts.montserrat(
-                        color: const Color(0xFF3f6096),
+                        color: AppColor.primaryColor,
                         fontSize: 40,
                         fontWeight: FontWeight.w400)),
                 const Text("Today",
                     style: TextStyle(
-                      color: Color(0xFF3f6096),
+                      color:AppColor.primaryColor,
                       fontSize: 17,
                     )),
               ],
             ),
           ),
           const SizedBox(
-            height: 40,
+            height: 20,
           ),
           Column(
             children: [
@@ -48,10 +49,10 @@ class TodayWeather extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    data.temp.toString(),
+                    data.temp.toStringAsFixed(1),
                     style: GoogleFonts.montserrat(
                       fontSize: 100,
-                      color: const Color(0xFF3f6096),
+                      color: AppColor.primaryColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -59,7 +60,7 @@ class TodayWeather extends StatelessWidget {
                     "\u00B0",
                     style: TextStyle(
                       fontSize: 80,
-                      color: Color(0xFF3f6096),
+                      color:AppColor.primaryColor,
                     ),
                   ),
                 ],
@@ -70,7 +71,7 @@ class TodayWeather extends StatelessWidget {
                   data.description,
                   style: GoogleFonts.montserrat(
                     fontSize: 16,
-                    color: const Color(0xFF3f6096),
+                    color: AppColor.primaryColor,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
@@ -84,11 +85,11 @@ class TodayWeather extends StatelessWidget {
                   Column(
                     children: [
                       const Icon(Icons.cloud,
-                          size: 25, color: Color(0xFF3f6096)),
+                          size: 25, color:AppColor.primaryColor),
                       const SizedBox(height: 8),
                       Text("Pressure",
                           style: GoogleFonts.montserrat(
-                              fontSize: 14, color: const Color(0xFF3f6096))),
+                              fontSize: 14, color: AppColor.primaryColor)),
                       Text("${data.pressure} hPa",
                           style: GoogleFonts.montserrat(
                               fontSize: 12, color: Colors.black)),
@@ -97,11 +98,11 @@ class TodayWeather extends StatelessWidget {
                   Column(
                     children: [
                       const Icon(Icons.opacity,
-                          size: 25, color: Color(0xFF3f6096)),
+                          size: 25, color:AppColor.primaryColor),
                       const SizedBox(height: 8),
                       Text("Humidity",
                           style: GoogleFonts.montserrat(
-                              fontSize: 14, color: const Color(0xFF3f6096))),
+                              fontSize: 14, color: AppColor.primaryColor)),
                       Text("${data.humidity}%",
                           style: GoogleFonts.montserrat(
                               fontSize: 12, color: Colors.black)),
@@ -109,11 +110,11 @@ class TodayWeather extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      const Icon(Icons.air, size: 25, color: Color(0xFF3f6096)),
+                      const Icon(Icons.air, size: 25, color:AppColor.primaryColor),
                       const SizedBox(height: 8),
                       Text("Wind Speed",
                           style: GoogleFonts.montserrat(
-                              fontSize: 14, color: const Color(0xFF3f6096))),
+                              fontSize: 14, color: AppColor.primaryColor)),
                       Text("${data.wind}km/h",
                           style: GoogleFonts.montserrat(
                               fontSize: 12, color: Colors.black)),

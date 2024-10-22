@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/services/app_color.dart';
 import 'package:weather_app/services/auth.dart';
 import 'package:weather_app/services/weather api.dart';
-import 'package:weather_app/components/Today_weather.dart';
+import 'package:weather_app/components/today_weather.dart';
 import 'package:weather_app/components/hourly_list.dart';
 
 class WeatherPage extends StatefulWidget {
@@ -20,7 +21,6 @@ class _WeatherPageState extends State<WeatherPage> {
   bool isLoading = true;
 
   void setupWeatherPage() async {
-    print('here in the behinging');
     data = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     print(data['location']);
     print(data['coordinates']);
@@ -31,8 +31,8 @@ class _WeatherPageState extends State<WeatherPage> {
         data['coordinates']['lat'], data['coordinates']['lon']);
     await weatherData.hourlyData(
         data['coordinates']['lat'], data['coordinates']['lon']);
-    print('is laoding is going to be false');
-    print(weatherData.fortNight);
+    // print('is loading false');
+    // print(weatherData.fortNight);
     setState(() {
       isLoading = false;
     });
@@ -46,12 +46,12 @@ class _WeatherPageState extends State<WeatherPage> {
 
   Future<void> _selectMenuOption(String option) async {
     if (option == "Sign Out") {
-      print('Signing out...'); // Debug print
-      await _auth.signOut(); // This should trigger the auth state change
-      print('User signed out.'); // Debug print
+      // print('Signing out...');
+      await _auth.signOut();
+      Navigator.pop(context);
+      print('User signed out.');
     } else if (option == "Change Location") {
-      // Implement Change Location logic if needed
-      Navigator.pop(context, data); // Placeholder for future use
+      Navigator.pop(context, data);
     }
   }
 
@@ -112,7 +112,7 @@ class _WeatherPageState extends State<WeatherPage> {
                             style: GoogleFonts.montserrat(
                               fontSize: 15,
                               fontWeight: FontWeight.w700,
-                              color: Color(0xFF3f6096),
+                              color:AppColor.primaryColor,
                             ),
                           ),
                         ),

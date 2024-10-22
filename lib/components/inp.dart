@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/services/app_color.dart';
 
 class InputBox extends StatefulWidget {
   final String inputText;
@@ -27,12 +28,12 @@ class _InputBoxState extends State<InputBox> {
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
                 borderSide: const BorderSide(
-                  color: Color(0xFFcde1fc),
+                  color:AppColor.secondaryColor,
                   width: 2.0,
                 ),
               ),
               labelText: widget.inputText,
-              labelStyle: const TextStyle(color:  Color(0xFF3f6096)),
+              labelStyle: const TextStyle(color: AppColor.primaryColor),
             ),
           ),
         )
