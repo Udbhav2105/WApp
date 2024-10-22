@@ -1,6 +1,7 @@
+// THIS IS THE PAGE WHERE 15 DAYS DATA IS SHOWN
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:weather_app/services/weather%20api.dart';
+import 'package:weather_app/services/weather_api.dart';
 import 'package:weather_app/components/fortnight_list.dart';
 
 class FortnightForecast extends StatelessWidget {

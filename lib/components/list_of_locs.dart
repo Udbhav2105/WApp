@@ -1,3 +1,4 @@
+// THIS IS WIDGET FOR LIST OF LOCATIONS THAT IS SHOWN ON SEARCH PAGE
 import 'package:flutter/material.dart';
 import 'package:weather_app/services/app_color.dart';
 
@@ -20,7 +21,7 @@ class LocationList extends StatelessWidget {
         children: [
           Text(
             location,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w600,
               color:AppColor.primaryColor,

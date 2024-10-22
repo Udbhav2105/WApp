@@ -1,3 +1,4 @@
+// THIS IS HAS FUNCTIONALITY OF SIGNING
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:weather_app/components/signin_button.dart';

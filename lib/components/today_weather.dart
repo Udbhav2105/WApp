@@ -1,6 +1,7 @@
+// THIS IS THE MAIN CARD OF THE WEATHER PAGE
 import 'package:flutter/material.dart';
 import 'package:weather_app/services/app_color.dart';
-import 'package:weather_app/services/weather api.dart';
+import 'package:weather_app/services/weather_api.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TodayWeather extends StatelessWidget {

@@ -1,3 +1,4 @@
+// THIS IS THE WIDGET TO DISPLAY FORTNIGHT DATA
 import 'package:flutter/material.dart';
 
 class FortnightList extends StatelessWidget {

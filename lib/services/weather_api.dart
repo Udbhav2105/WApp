@@ -19,9 +19,10 @@ class WeatherData {
 
   WeatherData(this.city);
 
+ // THIS FUNCTION FETCHES WEATHER DATA FROM THE INPUT LATITUDE AND LONGITUDE
   Future<bool> getCurrWeather(double latitude,double longitude) async {
-    print('getCurrWeather being called');
-    print("input values of this func is are ${latitude}, ${longitude}");
+    // print('getCurrWeather being called');
+    // print("input values of this func is are ${latitude}, ${longitude}");
     Response response = await get(Uri.parse(
         "https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=2b659a6b68178648847b3ab6d4992818&units=metric"));
 
@@ -47,6 +48,7 @@ class WeatherData {
     }
   }
 
+// THIS FUNCTION FETCHES LONGITUDE AND LATITUDE OF THE LOCATION
   Future<bool> getLonLat() async {
     Response response = await get(Uri.parse(
         "http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=2b659a6b68178648847b3ab6d4992818"));
@@ -69,9 +71,10 @@ class WeatherData {
     }
   }
 
-  Future<void> getFiveDayForecast(double latitude,double longitude) async {
-    print('getFiveDayForecast being called');
-    print("input values of this func is are ${latitude}, ${longitude}");
+  // THIS FUNCTION FETCHES DATA OF 15 DAYS
+  Future<void> get15DayForecast(double latitude,double longitude) async {
+    // print('getFiveDayForecast being called');
+    // print("input values of this func is are ${latitude}, ${longitude}");
     var url =
         "https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&key=d5b43d318855402190b443044a6db4ee";
     var response = await get(Uri.parse(url));
@@ -87,10 +90,10 @@ class WeatherData {
           'Failed to load data: ${response.body}');
     }
   }
-
+  // THIS FUNCTION FETCHES HOURLY DATA
   Future<void> hourlyData(double latitude,double longitude) async {
-    print('hourly data being called');
-    print("input values of this func is are ${latitude}, ${longitude}");
+    // print('hourly data being called');
+    // print("input values of this func is are ${latitude}, ${longitude}");
     var url =
         "https://api.weatherbit.io/v2.0/forecast/hourly?lat=${latitude}&lon=${longitude}&key=d5b43d318855402190b443044a6db4ee&hours=24";
     var response = await get(Uri.parse(url));

@@ -1,5 +1,6 @@
+// THIS IS THE WIDGET FOR HOURLY DATA
 import 'package:flutter/material.dart';
-import 'package:intl/date_time_patterns.dart';
+// import 'package:intl/date_time_patterns.dart';
 
 class HourlyList extends StatelessWidget {
   final String date;

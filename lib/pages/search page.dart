@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/services/app_color.dart';
-import 'package:weather_app/services/weather%20api.dart';
+import 'package:weather_app/services/weather_api.dart';
 import 'package:weather_app/components/inp.dart';
 import 'package:weather_app/components/list_of_locs.dart';
 import 'package:weather_app/services/auth.dart';
@@ -25,11 +25,13 @@ class _SearchLocState extends State<SearchLoc> {
     fetchLocationFromFirestore();
   }
 
+// THIS FETCHES DATA FROM FIREBASE
   Future<void> fetchLocationFromFirestore() async {
     String? userId = _auth.currentUser?.uid;
 
     if (userId != null) {
-      DocumentSnapshot snapshot = await _firestore.collection('cities').doc(userId).get();
+      DocumentSnapshot snapshot =
+          await _firestore.collection('cities').doc(userId).get();
 
       if (snapshot.exists) {
         var data = snapshot.data() as Map<String, dynamic>;
@@ -49,6 +51,7 @@ class _SearchLocState extends State<SearchLoc> {
     }
   }
 
+  // THIS ADDS LOCATION TO FIREBASE
   void addCity() async {
     print('trying to add');
     if (loc.text.isNotEmpty) {
@@ -84,6 +87,7 @@ class _SearchLocState extends State<SearchLoc> {
     }
   }
 
+// THIS REMMOVES LOCATION FROM FIREBASE
   void removeCity(int index) async {
     String? userId = _auth.currentUser?.uid;
     if (userId != null) {
@@ -104,19 +108,20 @@ class _SearchLocState extends State<SearchLoc> {
     }
   }
 
-  Future<void> navigateToWeatherPage(int index) async {
-    final result = await Navigator.pushNamed(
-      context,
-      '/weatherPage',
-      arguments: cities[index],
-    );
 
-    if (result != null && result is List<WeatherData>) {
-      setState(() {
-        cities = result.cast<Map<String, dynamic>>();
-      });
-    }
-  }
+//   Future<void> navigateToWeatherPage(int index) async {
+//     final result = await Navigator.pushNamed(
+//       context,
+//       '/weatherPage',
+//       arguments: cities[index],
+//     );
+//
+//     if (result != null && result is List<WeatherData>) {
+//       setState(() {
+//         cities = result.cast<Map<String, dynamic>>();
+//       });
+//     }
+//   }
 
   void signOut() async {
     await _auth.signOut();
@@ -129,11 +134,14 @@ class _SearchLocState extends State<SearchLoc> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: const Text('Search Locations',style: TextStyle(
-          color: Colors.black54,
-          letterSpacing: .2,
-          fontWeight: FontWeight.bold,
-        ),),
+        title: const Text(
+          'Search Locations',
+          style: TextStyle(
+            color: Colors.black54,
+            letterSpacing: .2,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.logout),
@@ -154,7 +162,7 @@ class _SearchLocState extends State<SearchLoc> {
                 child: ElevatedButton(
                   onPressed: addCity,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor:AppColor.secondaryColor,
+                    backgroundColor: AppColor.secondaryColor,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
@@ -162,7 +170,7 @@ class _SearchLocState extends State<SearchLoc> {
                   child: const Text(
                     'Add',
                     style: TextStyle(
-                      color:AppColor.primaryColor,
+                      color: AppColor.primaryColor,
                       fontSize: 19,
                       fontWeight: FontWeight.bold,
                     ),
@@ -177,7 +185,10 @@ class _SearchLocState extends State<SearchLoc> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: GestureDetector(
-                        onTap: () => navigateToWeatherPage(index),
+                        onTap: () => Navigator.pushNamed(
+                            context, '/weatherPage',
+                            arguments: cities[index]),
+                        // onTap: () => navigateToWeatherPage(index),
                         child: LocationList(
                           location: cities[index]['location'].toUpperCase(),
                           onRemove: () => removeCity(index),

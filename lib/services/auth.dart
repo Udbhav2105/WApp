@@ -49,7 +49,6 @@ class AuthServices {
 
 // This is to sign out
   Future<void> signOut() async {
-    print(byGoogle);
     await _auth.signOut();
     if (byGoogle){
       _googleSignIn.disconnect();

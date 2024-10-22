@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/services/app_color.dart';
 import 'package:weather_app/services/auth.dart';
-import 'package:weather_app/services/weather api.dart';
+import 'package:weather_app/services/weather_api.dart';
 import 'package:weather_app/components/today_weather.dart';
 import 'package:weather_app/components/hourly_list.dart';
 
@@ -27,7 +27,7 @@ class _WeatherPageState extends State<WeatherPage> {
     weatherData = WeatherData(data['location']);
     await weatherData.getCurrWeather(
         data['coordinates']['lat'], data['coordinates']['lon']);
-    await weatherData.getFiveDayForecast(
+    await weatherData.get15DayForecast(
         data['coordinates']['lat'], data['coordinates']['lon']);
     await weatherData.hourlyData(
         data['coordinates']['lat'], data['coordinates']['lon']);

@@ -1,3 +1,4 @@
+// THIS IS THE INPUT BOX FOR SEARCH PAGE
 import 'package:flutter/material.dart';
 import 'package:weather_app/services/app_color.dart';
 
