@@ -41,7 +41,7 @@ class HourlyList extends StatelessWidget {
                   height: 80,
                 ),
                 Text(
-                  temp.toString() + "°C",
+                  temp.toStringAsFixed(0) + "°C",
                   style: TextStyle(
                     fontSize: 15,
                   ),

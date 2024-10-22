@@ -21,8 +21,8 @@ class FortnightForecast extends StatelessWidget {
     ];
     final dynamic data =
     ModalRoute.of(context)?.settings.arguments as WeatherData;
-    print('here in fortnight');
-    print(data);
+    // print('here in fortnight');
+    // print(data.fortNight);
 
     return Scaffold(
       appBar: AppBar(
@@ -47,9 +47,12 @@ class FortnightForecast extends StatelessWidget {
             final DateTime datetime = DateTime.parse(dayWeather['datetime']);
             final String date = DateFormat('dd MMM').format(datetime);
             final String weekday = weekdays[datetime.weekday - 1];
-            final double temp = (dayWeather['temp'] is int)
-                ? (dayWeather['temp'] as int).toDouble()
-                : dayWeather['temp'] ?? 0.0;
+            final double highTemp = (dayWeather['max_temp'] is int)
+                ? (dayWeather['max_temp'] as int).toDouble()
+                : dayWeather['max_temp'] ?? 0.0;
+            final double lowTemp = (dayWeather['min_temp'] is int)
+                ? (dayWeather['min_temp'] as int).toDouble()
+                : dayWeather['min_temp'] ?? 0.0;
 
             final String iconCode =
                 dayWeather['weather']['icon'] ?? 'default';
@@ -59,7 +62,8 @@ class FortnightForecast extends StatelessWidget {
             return FortnightList(
               date: date,
               iconUrl: iconUrl,
-              temp: temp,
+              highTemp: highTemp,
+              lowTemp: lowTemp,
               weekday: weekday,
             );
           },
