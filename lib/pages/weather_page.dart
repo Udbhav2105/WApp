@@ -14,13 +14,21 @@ class WeatherPage extends StatefulWidget {
 }
 
 class _WeatherPageState extends State<WeatherPage> {
+  late WeatherData weatherData;
   final AuthServices _auth = AuthServices();
-  late WeatherData data;
+  late Map<String,dynamic> data;
   bool isLoading = true;
 
   void setupWeatherPage() async {
-    data = ModalRoute.of(context)?.settings.arguments as WeatherData;
-    await data.getCurrWeather();
+    print('here in the behinging');
+    data = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+    print(data['location']);
+    print(data['coordinates']);
+    weatherData = WeatherData(data['location']);
+    await weatherData.getCurrWeather(data['coordinates']['lat'],data['coordinates']['lon']);
+    await weatherData.getFiveDayForecast(data['coordinates']['lat'],data['coordinates']['lon']);
+    await weatherData.hourlyData(data['coordinates']['lat'],data['coordinates']['lon']);
+    print('is laoding is going to be false');
     setState(() {
       isLoading = false;
     });
@@ -70,7 +78,7 @@ class _WeatherPageState extends State<WeatherPage> {
         padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
         child: Column(
           children: [
-            SafeArea(child: TodayWeather(data: data)),
+            SafeArea(child: TodayWeather(data: weatherData)),
             const SizedBox(height: 10),
             Container(
               width: double.infinity,
@@ -109,8 +117,8 @@ class _WeatherPageState extends State<WeatherPage> {
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
-                children: List.generate(data.hourly.length, (index) {
-                  final hourlyWeather = data.hourly[index];
+                children: List.generate(weatherData.hourly.length, (index) {
+                  final hourlyWeather = weatherData.hourly[index];
                   final DateTime datetime = DateTime.parse(hourlyWeather['timestamp_local']);
                   final String date = DateFormat('dd MMM').format(datetime);
                   final String time = DateFormat('H:mm a').format(datetime);
