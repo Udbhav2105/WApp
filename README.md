@@ -52,6 +52,9 @@ flutter run
 2. ***Input Location**: Enter your desired location in the search bar.
 3. *Fetch Weather**: After entering the location, view the current weather data, a 24-hour forecast, and a 15-day forecast.
 
+
+![UI](./lib/images/weatherApp.png)
+
 ## 💻 Technologies Used
 
 - **Flutter**: Build beautiful and natively compiled applications for mobile.
