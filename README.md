@@ -46,9 +46,12 @@ flutter run
 ## 📱 Download APK
 
 You can download the latest APK release from the following link:
-
 [WeatherApp APK](https://github.com/Udbhav2105/weather_app/releases/tag/WeatherApp_APk)
 
+---
+
+
+## Click here to see demo of this application [Demo Video](lib/images/demo-video.mp4)
 
 ## 📖 Usage
 
