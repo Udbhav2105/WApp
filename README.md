@@ -34,14 +34,29 @@ Ensure you have Flutter installed. Run:
 flutter pub get
 ```
 
-### 4. Run the app
+### 4. Set up the environment variables
+
+You'll need to create a `.env` file in the root of the project to store your API keys for the weather services:
+
+- **OpenWeather API Key**: Register at [OpenWeather](https://openweathermap.org/) and get your API key.
+- **Weatherbit API Key**: Register at [Weatherbit](https://www.weatherbit.io/) and obtain your API key.
+
+Your `.env` file should look like this:
+
+```plaintext
+OPENWEATHER=your_openweather_api_key
+WEATHERBIT=your_weatherbit_api_key
+```
+
+### 5. Run the app
 
 Launch the app with:
 
 ```bash
 flutter run
 ```
-## OR
+
+### OR
 
 ## 📱 Download APK
 
@@ -50,8 +65,9 @@ You can download the latest APK release from the following link:
 
 ---
 
+## 🎥 Demo Video
 
-## Click here to see demo of this application [Demo Video](lib/images/demo-video.mp4)
+Click [here](lib/images/demo-video.mp4) to see a demo of this application.
 
 ## 📖 Usage
 
@@ -68,12 +84,8 @@ You can download the latest APK release from the following link:
 - **OpenWeather API**: Access reliable weather data.
 - **Weatherbit API**: Get detailed extended forecasts.
 
-## 📱 Download APK
-
-You can download the latest APK release from the following link:
-
-[WeatherApp APK](https://github.com/Udbhav2105/weather_app/releases/tag/WeatherApp_APk)
-
 ## 🤝 Contributing
 
 Contributions are welcome! If you have suggestions for improvements or new features, feel free to fork the repository and submit a pull request.
+
+---
