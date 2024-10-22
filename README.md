@@ -1,6 +1,3 @@
-Here’s a more polished and visually appealing README template for your GitHub project:
-
----
 
 # 🌤️ Weather App
 
