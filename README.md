@@ -41,6 +41,14 @@ Launch the app with:
 ```bash
 flutter run
 ```
+## OR
+
+## 📱 Download APK
+
+You can download the latest APK release from the following link:
+
+[WeatherApp APK](https://github.com/Udbhav2105/weather_app/releases/tag/WeatherApp_APk)
+
 
 ## 📖 Usage
 
