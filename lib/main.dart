@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/firebase_login.dart';
 import 'package:weather_app/pages/search%20page.dart';
@@ -13,39 +14,44 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: StreamBuilder(
+      debugShowCheckedModeBanner: false,
+      home: StreamBuilder<User?>(
         stream: AuthServices().authStateChanges,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {
             User? user = snapshot.data;
-            print(
-                "Auth State Changed: ${user != null ? 'Signed In' : 'Signed Out'}");
-            print(user);
+            print("Auth State Changed: ${user != null ? 'Signed In' : 'Signed Out'}");
+
             if (user != null) {
+              // User signed in
+              print('sending to serachLoc');
               return const SearchLoc();
             } else {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => FirebaseLogin()));
-              });
-              return const SizedBox(); // Return an empty widget while navigating
+              // User not signed in
+              print(user);
+              print("here");
+              return  FirebaseLogin();
             }
           } else {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
       routes: {
-        // '/': (context) => const SearchLoc(),
         '/weatherPage': (context) => const WeatherPage(),
         '/15days': (context) => const FortnightForecast(),
       },
