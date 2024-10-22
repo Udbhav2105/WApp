@@ -8,16 +8,19 @@ class AuthServices {
 
   Future<User?> signInAnonymously() async {
     try {
+      print("Trying to sign in anonymously");
       UserCredential userCredential = await _auth.signInAnonymously();
+      print("Success");
       return userCredential.user;
-    } catch (e) {
-      print("Error signing in $e");
+    } catch (e, stacktrace) {
+      print('Error in signInAnonymously: $e');
+      print('Stacktrace: $stacktrace');
       return null;
     }
   }
-
   Future<User?> signInWithGoogle() async {
     try {
+      await _googleSignIn.signOut();
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
         return null;
@@ -46,8 +49,11 @@ class AuthServices {
 
 // This is to sign out
   Future<void> signOut() async {
+    print(byGoogle);
     await _auth.signOut();
-    // print("here in auth signing out ");
+    if (byGoogle){
+      _googleSignIn.disconnect();
+    }
   }
 
 // Auth state changes now
