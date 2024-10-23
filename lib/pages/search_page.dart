@@ -55,13 +55,28 @@ class _SearchLocState extends State<SearchLoc> {
   void addCity() async {
     print('trying to add');
     if (loc.text.isNotEmpty) {
-      WeatherData weatherData = WeatherData(loc.text);
+      String inputLocation = loc.text.trim().toLowerCase();
+
+      bool isDuplicate = cities.any((city) => city['location'].toLowerCase().trim() == inputLocation);
+
+      if (isDuplicate) {
+        print('Location already exists');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Location already exists'),
+            backgroundColor: Colors.red,
+          ),
+        );
+        return;
+      }
+
+      WeatherData weatherData = WeatherData(inputLocation);
       bool locationFound = await weatherData.getLonLat();
       if (locationFound) {
         String? userId = _auth.currentUser?.uid;
         if (userId != null) {
           Map<String, dynamic> newLocation = {
-            'location': loc.text,
+            'location': inputLocation,
             'coordinates': {
               'lat': weatherData.latitude,
               'lon': weatherData.longitude
@@ -86,6 +101,7 @@ class _SearchLocState extends State<SearchLoc> {
       }
     }
   }
+
 
 // THIS REMOVES LOCATION FROM FIREBASE
   void removeCity(int index) async {
