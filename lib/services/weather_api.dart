@@ -105,7 +105,6 @@ class WeatherData {
       print("Weatherbit API Key not found");
       return;
     }
-
     var url =
         "https://api.weatherbit.io/v2.0/forecast/hourly?lat=${latitude}&lon=${longitude}&key=${weatherbitKey}&hours=24";
     var response = await get(Uri.parse(url));

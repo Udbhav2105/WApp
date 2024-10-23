@@ -24,23 +24,37 @@ class TodayWeather extends StatelessWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+            padding: const EdgeInsets.fromLTRB(20, 40, 20, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Text(data.city.toUpperCase(),
-                    style: GoogleFonts.montserrat(
+                Expanded( // To ensure the text occupies available space
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+                    child:
+                    Text(
+                      data.city.toUpperCase(),
+                      style: GoogleFonts.montserrat(
                         color: AppColor.primaryColor,
-                        fontSize: 40,
-                        fontWeight: FontWeight.w400)),
-                const Text("Today",
-                    style: TextStyle(
-                      color:AppColor.primaryColor,
-                      fontSize: 17,
-                    )),
+                        fontSize: 38,
+                        fontWeight: FontWeight.w400,
+                      ),
+                      // No need for overflow: TextOverflow.ellipsis since it's scrollable now
+                    ),
+                  ),
+                ),
+                const Text(
+                  "Today",
+                  style: TextStyle(
+                    color: AppColor.primaryColor,
+                    fontSize: 17,
+                  ),
+                ),
               ],
             ),
-          ),
+          )
+
+,
           const SizedBox(
             height: 20,
           ),
@@ -52,22 +66,31 @@ class TodayWeather extends StatelessWidget {
                   Text(
                     data.temp.toStringAsFixed(1),
                     style: GoogleFonts.montserrat(
-                      fontSize: 100,
+                      fontSize: 90,
                       color: AppColor.primaryColor,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
                   const Text(
+                    // "\u00B0 C"
                     "\u00B0",
                     style: TextStyle(
                       fontSize: 80,
                       color:AppColor.primaryColor,
                     ),
                   ),
+                  Text(
+                    "C",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 80,
+                      color: AppColor.primaryColor,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(0, 0, 28, 0),
+                padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                 child: Text(
                   data.description,
                   style: GoogleFonts.montserrat(

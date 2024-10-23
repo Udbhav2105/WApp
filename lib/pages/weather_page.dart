@@ -131,7 +131,7 @@ class _WeatherPageState extends State<WeatherPage> {
                         final String date =
                             DateFormat('dd MMM').format(datetime);
                         final String time =
-                            DateFormat('H:mm a').format(datetime);
+                            DateFormat('H:mm ').format(datetime);
                         final double temp = (hourlyWeather['temp'] is int)
                             ? (hourlyWeather['temp'] as int).toDouble()
                             : hourlyWeather['temp'] ?? 0.0;
